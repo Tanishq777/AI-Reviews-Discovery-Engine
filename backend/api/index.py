@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
 import json
-from .scraper import fetch_google_play_reviews, fetch_app_store_reviews, fetch_web_discussions
+from api.scraper import fetch_google_play_reviews, fetch_app_store_reviews, fetch_web_discussions
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate

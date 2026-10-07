@@ -3,9 +3,8 @@ python-dotenv
 pydantic
 uvicorn
 google-play-scraper
-app-store-scraper
 duckduckgo-search
-requests
+requests>=2.31.0
 langchain-google-genai
 langchain-openai
 langchain-core
