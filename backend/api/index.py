@@ -164,4 +164,29 @@ Ensure the output is strictly valid JSON without any markdown formatting like ``
         raise he
     except Exception as e:
         print(f"LLM Error: {e}")
-        raise HTTPException(status_code=500, detail=f"LLM Analysis failed: {str(e)}")
+        # Fallback to mock response if LLM fails (e.g. missing API key)
+        return {
+            "problems": [
+                {
+                    "title": "⚠️ AI Key Not Working",
+                    "description": "The AI key is not working at the moment. This is a mock response because the LLM failed to authenticate or crashed.",
+                    "evidence_quote": str(e)
+                }
+            ],
+            "strategies": [
+                {
+                    "title": "Mock Strategy",
+                    "description": "Since the AI is offline, we are showing this placeholder.",
+                    "evidence_quote": "Please check your Vercel Environment Variables for OPENAI_API_KEY."
+                }
+            ],
+            "opportunities": [
+                {
+                    "title": "Configure API Key",
+                    "description": "Add a valid API key to the Vercel dashboard to see real AI-generated insights."
+                }
+            ],
+            "is_live": is_live,
+            "filtered_reviews": data,
+            "raw_reviews": reviews
+        }
