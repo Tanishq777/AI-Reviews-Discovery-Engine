@@ -37,7 +37,13 @@ function App() {
   const handleAnalyze = async () => {
     setLoading(true);
     try {
-      const API_URL = import.meta.env.PROD ? "/api/analyze" : "http://localhost:8000/api/analyze";
+      // In a purely client-side Vite app, runtime bindings aren't available to the browser, 
+      // so we rely on the public rewrite. However, if this were SSR or an API route,
+      // we would use the injected VITE_BACKEND_URL binding.
+      const API_URL = import.meta.env.VITE_BACKEND_URL 
+        ? new URL("/api/analyze", import.meta.env.VITE_BACKEND_URL).href 
+        : "/api/analyze";
+
       const response = await axios.post(API_URL, {
         query,
         source,
